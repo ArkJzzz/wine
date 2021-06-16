@@ -19,7 +19,7 @@ today = datetime.date.today()
 winery_age = today.year - winery_foundation.year
 
 excel_data_df = pandas.read_excel(
-            io='wine3.xlsx',
+            io='wine.xlsx',
             sheet_name='Лист1',
             na_values='nan',
             keep_default_na=False,
@@ -37,6 +37,11 @@ for bottle in bottles:
                 'promotion': bottle['Акция']
             }
         )
+
+categories = collections.OrderedDict(sorted(categories.items()))
+
+pprint(categories)
+
 
 rendered_page = template.render(
     winery_age=winery_age,
