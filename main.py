@@ -1,3 +1,4 @@
+import os
 import datetime
 import collections
 from pprint import pprint
@@ -5,7 +6,7 @@ from pprint import pprint
 import pandas
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from jinja2 import Environment, FileSystemLoader, select_autoescape
-
+from dotenv import load_dotenv
 
 def main():
 
@@ -20,8 +21,9 @@ def main():
     today = datetime.date.today()
     winery_age = today.year - winery_foundation_date.year
 
+    load_dotenv()
     excel_data_df = pandas.read_excel(
-                io='wine.xlsx',
+                io=os.getenv('WINES_FILE'),
                 sheet_name='Лист1',
                 na_values='nan',
                 keep_default_na=False,
