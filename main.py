@@ -16,9 +16,9 @@ def main():
 
     template = env.get_template('template.html')
 
-    winery_foundation_year = datetime.date(year=1920, month=1, day=1)
+    winery_foundation_date = datetime.date(year=1920, month=1, day=1)
     today = datetime.date.today()
-    winery_age = today.year - winery_foundation.year
+    winery_age = today.year - winery_foundation_date.year
 
     excel_data_df = pandas.read_excel(
                 io='wine.xlsx',
@@ -30,15 +30,7 @@ def main():
     assortment = collections.defaultdict(list)
 
     for bottle in bottles:
-        assortment[bottle['Категория']].append(
-                {
-                    'title': bottle['Название'],
-                    'variety': bottle['Сорт'],
-                    'price': bottle['Цена'],
-                    'image': bottle['Картинка'],
-                    'promotion': bottle['Акция']
-                }
-            )
+        assortment[bottle['Категория']].append(bottle)
 
     assortment = collections.OrderedDict(sorted(assortment.items()))
 
